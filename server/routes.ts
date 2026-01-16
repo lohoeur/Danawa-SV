@@ -209,7 +209,8 @@ export async function registerRoutes(
 
   app.get(api.stats.list.path, async (req, res) => {
     try {
-      const params = api.stats.list.input.optional().parse(req.query || {});
+      const parsed = api.stats.list.input.optional().parse(req.query || {});
+      const params = parsed || {};
       const stats = await storage.getStats(params);
       res.json(stats);
     } catch (error) {
